@@ -1,9 +1,17 @@
 <template>
-  <div>
+  <div class="layout-wrapper">
     <n-config-provider :theme="theme">
       <n-space vertical size="large">
+        <n-layout-header bordered class="layout-header">
+          <n-menu
+            v-model:value="headerMenuActiveKey"
+            mode="horizontal"
+            :options="headerMenuOptions"
+          />
+        </n-layout-header>
         <n-layout has-sider>
           <n-layout-sider
+            class="admin-sider"
             bordered
             collapse-mode="width"
             :collapsed-width="64"
@@ -49,6 +57,7 @@ function renderIcon(icon: Component) {
 const theme = ref<GlobalTheme | null>(null)
 const collapsed = ref<boolean>(true)
 const activeKey = ref<string | null>(null)
+const headerMenuActiveKey = ref<string | null>(null)
 const menuOptions = [
   {
     label: '1973年的弹珠玩具',
@@ -63,6 +72,30 @@ const menuOptions = [
     ],
   },
 ]
+const headerMenuOptions = [
+  {
+    label: '1973年的弹珠玩具',
+    key: 'pinball-1973',
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        label: '鼠',
+        key: 'rat',
+      },
+    ],
+  },
+]
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.layout-wrapper {
+  height: 100vh;
+  width: 100vw;
+}
+.admin-sider {
+  height: calc(100vh - 60px);
+}
+.layout-header {
+  margin-bottom: 0 !important;
+}
+</style>
